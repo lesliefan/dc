@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link href="css/mui.min.css" rel="stylesheet" />
+	<script src="js/mui.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>	    
+    
+</head>
+<script type="text/javascript" charset="utf-8">
+  	mui.init();
+  	//拍照 
+    function getImage() { 
+        var c = plus.camera.getCamera(); 
+        c.captureImage(function(e) { 
+            plus.io.resolveLocalFileSystemURL(e, function(entry) { 
+                var s = entry.toLocalURL() + "?version=" + new Date().getTime(); 
+                uploadHead(s); /*上传图片*/ 
+            }, function(e) { 
+                console.log("读取拍照文件错误：" + e.message); 
+            }); 
+        }, function(s) { 
+            console.log("error" + s); 
+        }, { 
+            filename: "_doc/head.png" 
+        }) 
+    } 
+//	$(document).ready(function() {
+//		//读出用户信息
+//		$.ajax({
+//			type: 'GET',
+//			contentType: 'application/x-www-form-urlencoded',
+//			url: "http://111.230.153.180:3000/getinfobyid",
+//			dataType: 'text',
+//			data: {
+//				id: 1,
+//				func:"getUserInfoByID"
+//			},
+//			success: function(result) {
+//				var sss = $.parseJSON(result);
+//				$("#userinfo").append("<div class='mui-input-row'><label>"+"昵称"+"</label><input type='text' placeholder='"+sss[0].username+"'></div>");
+//				$("#userinfo").append("<div class='mui-input-row'><label>"+"电话"+"</label><input type='text' placeholder='"+sss[0].phone+"'></div>");
+//				
+//			},
+//			error: function(result, status) {
+//				alert("connect  error:" + result + status);
+//			}
+//		});
+//
+//		//读出用户常用线路
+//		$.ajax({
+//			type: 'GET',
+//			contentType: 'application/x-www-form-urlencoded',
+//			url: "http://111.230.153.180:3000/getinfobyid",
+//			dataType: 'text',
+//			data: {
+//				id: 1,
+//				func:"getCareLinesByCuID"
+//			},
+//			success: function(result) {
+//				var sss = $.parseJSON(result);
+//				//alert(sss.length);
+//				for(var i = 0; i<sss.length; i++){												
+//					$("#lines").append(" <li  class='mui-table-view-cell' >"+sss[i].startp+"--->"+sss[i].endp+"</li>");
+//				};
+//			},
+//			error: function(result, status) {
+//				alert("connect  error:" + result + status);
+//			}
+//		});
+//		
+//		//读出用户关注司机
+//		$.ajax({
+//			type: 'GET',
+//			contentType: 'application/x-www-form-urlencoded',
+//			url: "http://111.230.153.180:3000/getinfobyid",
+//			dataType: 'text',
+//			data: {
+//				id: 1,
+//				func:"getCareCarsByCuID"
+//			},
+//			success: function(result) {
+//				var sss = $.parseJSON(result);
+//				//alert(sss.length);
+//				for(var i = 0; i<sss.length; i++){												
+//					$("#drivers").append(" <li  class='mui-table-view-cell' >"+sss[i].username+"---"+sss[i].carnum+"</li>");
+//				};
+//			},
+//			error: function(result, status) {
+//				alert("connect  error:" + result + status);
+//			}
+//		});
+//
+//	});
+
+        
+</script>
+
+<body>
+	<div class="mui-content">
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell mui-media">
+				<a href="#sheet2" id="openSheet">
+					
+					<img class="mui-media-object mui-pull-left" src="images/shuijiao.jpg" >					
+						<div class="mui-media-body">							
+							<label>圣行</label>
+							<p>您还没有个性签名</p>							
+						</div>
+					<button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="headImage">按钮</button>
+				</a>
+			</li>
+		</ul>
+		<form id="userinfo" class="mui-input-group">
+			
+
+		</form>			
+		
+		
+		<h5 class="mui-content-padded">我关注的线路</h5>
+		<div class="mui-card">
+			<ul id="lines" class="mui-table-view mui-table-view-chevron">
+				
+			</ul>			
+		</div>
+		
+		<h5 class="mui-content-padded">我关注的车</h5>
+		<div class="mui-card">
+			<ul id="drivers" class="mui-table-view mui-table-view-chevron">
+			</ul>			
+		</div>			
+	
+
+
+	</div>
+	<div id="sheet" class="mui-popover mui-popover-bottom mui-popover-action ">
+	    <!-- 可选择菜单 -->
+	    <ul class="mui-table-view">
+	      <li class="mui-table-view-cell">
+	        <a href="#">拍照</a>
+	      </li>
+	      <li class="mui-table-view-cell">
+	        <a href="#">相片</a>
+	      </li>
+	    </ul>
+	    <!-- 取消菜单 -->
+	    <ul class="mui-table-view">
+	      <li class="mui-table-view-cell">
+	        <a href="#sheet"><b>取消</b></a>
+	      </li>
+	    </ul>
+	</div>
+	
+	
+
+
+ 
+</body>
+
+</html>

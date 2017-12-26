@@ -1,0 +1,20 @@
+{
+	"index.html": {
+		"refer": [
+			"dr_booking.html",
+			"getpoint.html",
+			"cu_mine.html"
+		]
+	},
+	"getpoint.html": {
+		"refer": [
+			"tst.html"
+		]
+	},
+	"tst.html": {
+		"refer": [
+			"dr_booking.html",
+			"getpoint.html"
+		]
+	}
+}

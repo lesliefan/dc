@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="utf-8">mui.init();
+ 
+		mui.plusReady(function() {
+			document.getElementById("fabu").addEventListener("tap", function() {				
+				mui.openWindow({
+					url: "getpoint.html", //"dr_booking.html",
+					id: "getpoint.html" ,
+					waiting: {
+						autoShow: false 
+					}
+				}); 
+			}); 
+		
+			document.getElementById("sear").addEventListener("tap", function() {
+				mui.openWindow({
+					url: "dr_booking.html",
+					id: "dr_booking.html",
+					waiting: {
+						autoShow: false
+					},
+					extras: {
+						name: 'testapp'
+					}
+		
+				});
+		
+			});
+		
+			document.getElementById("mine").addEventListener("tap", function() {
+				mui.openWindow({
+					url: "cu_mine.html",
+					id: "cu_mine.html",
+					waiting: {
+						autoShow: false
+					},
+					extras: {
+						name: 'testapp'
+					}
+		
+				});
+		
+			});
+		
+		});
+//		$(document).ready(function() {//读出司机发布的订单
+//			$.ajax({
+//				type: 'GET',
+//				contentType: 'application/x-www-form-urlencoded',
+//				url: "http://111.230.153.180:3000/getinfobyid",
+//				dataType: 'text',
+//				data: {
+//					id: 1,
+//					func:"getOrderInfoByDrID"
+//				},
+//				success: function(result) {
+//					var sss = $.parseJSON(result);
+//					for(var i = 0; i<sss.length; i++){												
+//						$("#orders").append(" <li  class='mui-table-view-cell' >"+sss[i].startp+"--->"+sss[i].endp+"</li>");
+//								
+//					};				
+//				},
+//				error: function(result, status) {
+//					alert("connect  error:" + result + status);
+//				}
+//			});
+
+        	//我关注的线路
+//			$.ajax({
+//				type: 'GET',
+//				contentType: 'application/x-www-form-urlencoded',
+//				url: "http://111.230.153.180:3000/getinfobyid",
+//				dataType: 'text',
+//				data: {
+//					id: 1,
+//					func:"getCareLinesByCuID"
+//				},
+//				success: function(result) {
+//					var sss = $.parseJSON(result);
+//					//alert(sss.length);
+//					for(var i = 0; i<sss.length; i++){												
+//						$("#lines").append(" <li  class='mui-table-view-cell' >"+sss[i].startp+"--->"+sss[i].endp+"</li>");
+//					};
+//				},
+//				error: function(result, status) {
+//					alert("connect  error:" + result + status);
+//				}
+//			});
+			
+			//附近最新的订单
+//			$.ajax({
+//				type: 'GET',
+//				contentType: 'application/x-www-form-urlencoded',
+//				url: "http://111.230.153.180:3000/getinfobyid",
+//				dataType: 'text',
+//				data: {
+//					id: 1,
+//					func:"getNearOrders"
+//				},
+//				success: function(result) {
+//					var sss = $.parseJSON(result);
+//					//alert(sss.length);
+//					for(var i = 0; i<sss.length; i++){												
+//						$("#newlines").append(" <li  class='mui-table-view-cell' >"+sss[i].startp+"--->"+sss[i].endp+"</li>");
+//					};
+//				},
+//				error: function(result, status) {
+//					alert("connect  error:" + result + status);
+//				}
+//			});
+//				
+  
+		
+  
+    </script>
+</head>
+<body>
+
+	<div class="mui-content">
+		
+		 <ul class="mui-table-view mui-grid-view ">
+		 	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">范先生，您好！</li>
+		 	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">				
+		 		<div class="mui-segmented-control">
+				    <a class="mui-control-item mui-active" href="#item1">乘客</a>
+				    <a class="mui-control-item" href="#item2">司机</a>
+				</div>	
+		 	</li>
+		 	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+		 		<ul class="mui-table-view">
+		 		    <li class="mui-table-view-cell mui-collapse">
+		 		        <a class="mui-navigate-right" href="#">广州</a>
+		 		        <div class="mui-collapse-content">
+		 		            <p>广州</p>
+		 		            <p>北京</p>
+		 		            <p>上海</p>
+		 		        </div>
+		 		    </li>
+		 		    
+		 		</ul>
+		 		</li>
+		 </ul>
+		 	
+		
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="cu_order.html">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" id="sear" href="cu_order.html">
+				<span class="mui-icon mui-icon-search "></span>
+				<span class="mui-tab-label">发现</span>
+			</a>
+			<a class="mui-tab-item" href="cu_order.html">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">订单</span>
+			</a>
+			<a class="mui-tab-item" id="mine" href="#tabbar-with-contact">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+	
+		</nav>	
+
+		
+		<div class="mui-content-padded">
+
+			<button id="fabu" type="button" class="mui-btn mui-btn-yellow mui-btn-block">发布行程</button>
+		</div>
+
+
+		<h5 class="mui-content-padded">我的常用路线</h5>
+			<div class="mui-card">
+			<ul id="lines" class="mui-table-view mui-table-view-chevron">
+			</ul>
+			
+		</div>
+
+		<div class="mui-card">
+			<div class="mui-card-content">
+				<div class="mui-card-header  mui-card-media">
+					<img src="images/lmao.jpeg" />
+					<div class="mui-media-body">
+							M先生
+							<p>传祺 GS4  余4座   10元/位</p>
+					</div>
+				</div>
+				<div class="mui-card-content-inner">
+					<p>起点：祈福新村</p>
+					<p>终点：珠江新城</p>
+					<p>出发时间：2017-12-12 19:30</p>
+				</div>
+				<div class="mui-card-footer">
+					他正在寻找乘客
+					<button>坐他的车</button>
+				</div>
+			</div>
+
+		</div>
+		<div class="mui-card">
+			<div class="mui-card-content">
+				<div class="mui-card-header  mui-card-media">
+					<img src="images/bniu.jpg" />
+					<div class="mui-media-body">
+							金鱼姬
+							<p>传祺 GS4  余4座   10元/位</p>
+					</div>
+				</div>
+				<div class="mui-card-content-inner">
+					<p>起点：祈福新村</p>
+					<p>终点：珠江新城</p>
+					<p>出发时间：2017-12-12 19:30</p>
+				</div>
+				<div class="mui-card-footer">
+					他正在寻找乘客
+					<button>坐ta的车</button>
+				</div>
+			</div>
+
+		</div>
+		<button type="button" class="mui-btn mui-btn-blue mui-btn-block">更多...</button>
+
+<h5 class="mui-content-padded">附近最新发布的订单</h5>
+			<div class="mui-card">
+			<ul id="newlines" class="mui-table-view mui-table-view-chevron">
+			</ul>
+			
+		</div>
+
+	</div>		
+	
+</body>
+</html>

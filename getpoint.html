@@ -1,0 +1,142 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+		body, html{width: 100%;height: 100%; margin:0;font-family:"微软雅黑";}
+		#l-map{height:60%;width:100%;}
+		#r-result{width:100%;}
+	</style>
+	    <script src="js/mui.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+	<link href="css/dache.css" rel="stylesheet"/>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=lgGoY5W4lfkEWaEUYpdp2qVGPFLUyICg"></script>
+	<title></title>
+</head>
+<body>
+	<div class="mui-content">
+	 
+		<div id="l-map" style="visibility: none;"></div>
+		<div class="mui-card">
+
+			<div class="mui-card-content-inner">
+				<div class="mui-input-row">
+					<label>起点：</label>
+					<input id="startp" type="text" placeholder="普通输入框">
+				</div>
+				
+				<div class="mui-input-row">
+					<label>终点：</label>
+					<input id="endp" type="text" placeholder="普通输入框">
+				</div>
+				
+				<button type="button" id='nextstep' class="mui-btn mui-btn-blue mui-btn-block" style="visibility: none;">下一步</button>
+
+			</div>
+
+		</div> 
+	</div>	
+	<!--<div id="r-result"></div>-->
+</body>
+</html>
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("l-map");            // 创建Map实例
+	map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
+	
+	mui.init();
+    //从服务器获取数据	            
+    //业务数据获取完毕，并已插入当前页面DOM；
+    //注意：若为ajax请求，则需将如下代码放在处理完ajax响应数据之后；
+
+    mui.plusReady(function(){
+    	
+        var self = plus.webview.currentWebview();
+        var pid = self.driverid;
+        			
+        //关闭等待框
+        plus.nativeUI.closeWaiting();
+        //显示当前页面
+        mui.currentWebview.show();
+	    
+      
+	    //添加显示起点、终点位置的事件
+	    window.addEventListener("doit",function(e){
+	    	 
+	    	var ptype=e.detail.ptype; 
+	    	var ctxt=document.getElementById(ptype);
+	    	
+	    	ctxt.setAttribute('pname',e.detail.pname);
+	    	ctxt.setAttribute('plat',e.detail.plat);
+	    	ctxt.setAttribute('plng',e.detail.plng);
+	    	ctxt.value=e.detail.pname; 
+	    	
+	    	
+	    	if(document.getElementById("startp").value && document.getElementById("endp").value){
+		    	var stxt=document.getElementById("startp");
+		    	var etxt=document.getElementById("endp");
+		    	  
+//							
+				// 百度地图API功能  
+				var sx=stxt.getAttribute("plat");
+				var sy=stxt.getAttribute("plng");
+				var ex=etxt.getAttribute("plat");
+				var ey=etxt.getAttribute("plng");
+				 
+				
+				var p1 = new BMap.Point(sy,sx); 
+				var p2 = new BMap.Point(ey,ex);  
+				
+				var x1=(sx+ex)/2; 
+				var y1=(sy+ey)/2;
+				
+				document.getElementById("ss").value=sx+','+sy+';'+ex+','+ey; 
+				//清除多余线路
+				map.clearOverlays();
+				map.centerAndZoom(new BMap.Point(y1,x1),11); 
+				var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+				driving.search(p1, p2);
+				
+				document.getElementById("nextstep").style.visibility = "visible";
+
+	    	};
+        	
+	    });			    
+	    
+        //起点设置
+	    var btt=document.getElementById("startp");
+	    var p1=btt.value;
+	   	btt.addEventListener("tap", function() {
+	        mui.openWindow({
+	            url: "tst.html",
+	            id: "tst.html",
+	            extras: {
+					        ptype:"startp",
+					        curp:p1
+					    }			            
+	        }); 
+	    });    
+	    //终点设置
+	    var btt=document.getElementById("endp");
+	   	var p1=btt.value;
+	   	btt.addEventListener("tap", function() {
+	        mui.openWindow({
+	            url: "tst.html",
+	            id: "tst.html", 
+	            waiting: {
+						autoShow: false 
+					}, 
+	            extras: {
+					        ptype:"endp",
+					        curp:p1
+					    }			            
+	        });
+	    });    
+	    
+    
+	});
+
+//	    
+           
+</script>

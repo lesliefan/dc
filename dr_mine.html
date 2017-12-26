@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+
+		<div class="mui-content">
+			
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="images/shuijiao.jpg">
+						<div class="mui-media-body">
+							圣行
+							<button type="button" class="mui-btn mui-btn-link">
+								修改
+							</button>
+						</div>
+					</a>
+				</li>
+			</ul>
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>电话</label>
+					<input type="text" placeholder="普通输入框">
+				</div>
+				<div class="mui-input-row">
+					<label>车牌号</label>
+					<input type="text" class="mui-input-clear" placeholder="带清除按钮的输入框">
+				</div>
+			</form>			
+			
+			<h5 class="mui-content-padded">常用线路</h5>
+			<div class="mui-card">
+				<ul id="list" class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-cell">祈福新村----珠江新城     </li>			
+					<li class="mui-table-view-cell">太古汇----珠江新城     </li>			
+				</ul>			
+			</div>
+			
+			<h5 class="mui-content-padded">其他设置</h5>
+			<div class="mui-card">
+				<ul id="list" class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-cell">提供座位：4个     </li>			
+					<li class="mui-table-view-cell">等待时间：30分钟   </li>			
+					<li class="mui-table-view-cell">收费：30分钟   </li>
+					<li class="mui-table-view-cell">搜索范围：2km   </li>
+				</ul>			
+			</div>			
+		</div>
+		
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

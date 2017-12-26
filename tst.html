@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="mui-content">
+			<button id="search" type="button" class="mui-btn mui-btn-yellow mui-btn-block">显示地图地点检索列表</button>
+			<div class="mui-content-padded" id="qarea">
+				<div class="mui-input-row">
+					<label>查询</label>
+					<input id="ptxt" type="search" placeholder="输入地点名称" class="mui-input-clear">
+				</div>
+				<ul id="qlist">
+				</ul>
+			</div>
+				<div id="hist" class="mui-card-footer">
+					<label>历史记录</label>
+					<button type="button" class="mui-btn mui-btn-blue">清除</button>									
+				</div>						
+		</div>
+
+	</body>
+<script type="text/javascript">
+	mui.init();
+	selectstartp=""
+	var text =document.getElementById("ptxt");  	
+	text.addEventListener('input', function() {		
+		var p1 = encodeURI(document.getElementById("ptxt").value);
+		var p2 = encodeURI("广州");
+		var purl = "http://api.map.baidu.com/place/v2/search?query=" + p1 + "&region=" + p2 + "&output=json&ak=http://api.map.baidu.com/place/v2/suggestion?query=%E7%A5%88%E7%A6%8F%E6%96%B0%E6%9D%91&region=%E5%B9%BF%E5%B7%9E&city_limit=true&output=json&ak=7YlRGZZzkj3jKwCcSgk4LwXK4uz5KSnL";
+		$.ajax({
+			type: 'GET',
+			contentType: 'application/x-www-form-urlencoded',
+			url: purl,
+			dataType: 'jsonp',
+			data: {},
+			success: function(result) {				
+				$("#qlist li").remove();
+				for(var i = 0; i < result.results.length; i++) {
+					var liname="li" + i;
+					$("#qlist").append(" <li id='"+liname+ "' lat="+ result.results[i].location.lat+">" + result.results[i].name +"</li>");
+					$("#li"+i).attr("pname",result.results[i].name);
+					$("#li"+i).attr("lat",result.results[i].location.lat);
+					$("#li"+i).attr("lng",result.results[i].location.lng);
+					 
+				};
+			},
+			error: function(result, status) {
+				alert("connect  error:" + result + status); 
+			}
+		});
+
+	});
+ 
+
+	mui.plusReady(function() {
+		//获得参数
+		        //关闭等待框
+        plus.nativeUI.closeWaiting();
+        //显示当前页面
+        mui.currentWebview.show();
+          
+		var self = plus.webview.currentWebview();
+		var curp = self.curp;
+		var ptype=self.ptype;
+
+		//关闭等待框
+		plus.nativeUI.closeWaiting();
+		mui.currentWebview.show();
+		  
+		//给列表绑定事件 
+		$("#qarea ul").on("tap","li", function() {
+     		
+     		var ws=plus.webview.getWebviewById("getpoint.html");     		
+     		mui.fire(ws,'doit',{
+		        ptype:ptype,
+		        pname:$(this).attr("pname"), 
+		        plat:$(this).attr("lat"),
+		        plng:$(this).attr("lng")
+		    });		    
+		    mui.back()
+ 		});			
+	});
+
+</script>
+
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+      	$(document).ready(function() {
+			//读出用户加入的订单			
+			$.ajax({
+				type: 'GET',
+				contentType: 'application/x-www-form-urlencoded',
+				url: "http://111.230.153.180:3000/getinfobyid",
+				dataType: 'text',
+				data: {
+					id: 1,
+					func:"getOrderInfoByCuID"
+				},
+				success: function(result) {
+					var sss = $.parseJSON(result);
+					document.getElementById("orderinfo").innerHTML = sss[0].startp +"-->"+sss[0].endp;					
+				},
+				error: function(result, status) {
+					alert("connect  error:" + result + status);
+				}
+			});
+
+			//读出用户常用线路
+			$.ajax({
+				type: 'GET',
+				contentType: 'application/x-www-form-urlencoded',
+				url: "http://111.230.153.180:3000/getinfobyid",
+				dataType: 'text',
+				data: {
+					id: 1,
+					func:"getCareLinesByCuID"
+				},
+				success: function(result) {
+					var sss = $.parseJSON(result);
+					//alert(sss.length);
+					for(var i = 0; i<sss.length; i++){												
+						$("#lines").append(" <li  class='mui-table-view-cell' >"+sss[i].startp+"--->"+sss[i].endp+"</li>");
+					};
+				},
+				error: function(result, status) {
+					alert("connect  error:" + result + status);
+				}
+			});
+			//读出用户关注司机
+			$.ajax({
+				type: 'GET',
+				contentType: 'application/x-www-form-urlencoded',
+				url: "http://111.230.153.180:3000/getinfobyid",
+				dataType: 'text',
+				data: {
+					id: 1,
+					func:"getCareCarsByCuID"
+				},
+				success: function(result) {
+					var sss = $.parseJSON(result);
+					//alert(sss.length);
+					for(var i = 0; i<sss.length; i++){												
+						$("#drivers").append(" <li  class='mui-table-view-cell' >"+sss[i].username+"---"+sss[i].carnum+"</li>");
+					};
+				},
+				error: function(result, status) {
+					alert("connect  error:" + result + status);
+				}
+			});
+
+		});
+		
+    </script>
+
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<h3 >圣行，你好！</h3>
+	</header>
+	<nav class="mui-bar mui-bar-tab">
+		<a class="mui-tab-item mui-active" href="#tabbar">
+			<span class="mui-icon mui-icon-home"></span>
+			<span class="mui-tab-label">首页</span>
+		</a>
+		<a class="mui-tab-item" href="#tabbar-with-chat">
+			<span class="mui-icon mui-icon-email"></span>
+			<span class="mui-tab-label">行程</span>
+		</a>
+		<a class="mui-tab-item" href="#tabbar-with-contact">
+			<span class="mui-icon mui-icon-contact"></span>
+			<span class="mui-tab-label">历史</span>
+		</a>
+		<a class="mui-tab-item" href="#tabbar-with-map">
+			<span class="mui-icon mui-icon-gear"></span>
+			<span class="mui-tab-label">设置</span>
+		</a>
+	</nav>	
+	
+	<div class="mui-content">
+		
+		
+		<h4>已确认订单：</h4>
+		<div class="mui-content-padded">
+			<ul id="list" class="mui-table-view mui-table-view-chevron">
+				<li id="orderinfo" class="mui-table-view-cell">19:30 粤L A131T  太古汇----珠江新城     </li>			
+			</ul>			
+		</div>
+
+		<h4>我常用的路线：</h4>
+		<div class="mui-content-padded">
+			<ul id="lines" class="mui-table-view mui-table-view-chevron">
+			</ul>
+			
+		</div>
+
+		<h4>我关注的司机：</h4>
+		<div class="mui-content-padded">
+			<ul id="drivers" class="mui-table-view mui-table-view-chevron">
+			</ul>
+			
+		</div>
+
+	</div>		
+	
+</body>
+</html>

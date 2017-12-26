@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	    <script src="js/mui.min.js"></script>
+	    <script src="js/jquery.min.js"></script>		
+	    <script src="js/tools.js"></script>		
+	    
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+	
+	<script type="text/javascript" charset="utf-8">
+		mui.init();	
+
+		$(document).ready(function() {
+			
+			//显示订单详情
+			$.ajax({
+				type: 'GET',
+				contentType: 'application/x-www-form-urlencoded',
+				url: "http://111.230.153.180:3000/getinfobyid",
+				dataType: 'text', 
+				data: {
+					id: 1,
+					func:"getOrderInfoByDrID"
+				},
+				success: function(result) {
+					
+					var sss = $.parseJSON(result);
+					document.getElementById("disp").innerHTML = sss[0].startp +"--"+sss[0].endp;
+					document.getElementById("drivername").innerHTML = sss[0].username;
+					document.getElementById("carnum").innerHTML = sss[0].carnum;
+					document.getElementById("begintime").innerHTML =  sss[0].begintime;
+					document.getElementById("money").innerHTML = sss[0].money+"元";
+					document.getElementById("memo").innerHTML = sss[0].memo;
+				},
+				error: function(result, status) {
+					alert("connect  error:" + result + status);
+				}
+			});
+			
+			//显示乘客信息
+			$.ajax({
+				type: 'GET',
+				contentType: 'application/x-www-form-urlencoded',
+				url: "http://111.230.153.180:3000/getinfobyid",
+				dataType: 'text', 
+				data: {
+					id: 1,
+					func:"getCusByOrderID"
+				},
+				success: function(result) {
+					
+					var sss = $.parseJSON(result);
+					for(var i = 0; i<sss.length; i++){									
+						
+						$("#users").append("<button type='button' class='mui-btn mui-btn-purple'>" +sss[i].username+"</button>");
+					};
+				},
+				error: function(result, status) {
+					alert("connect  error:" + result + status);
+				}
+			});
+
+
+		});
+	</script>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h4 >订单详情</h4>
+		</header>
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="cu_order.html">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" id="sear" href="cu_order.html">
+				<span class="mui-icon mui-icon-search "></span>
+				<span class="mui-tab-label">发现</span>
+			</a>
+			<a class="mui-tab-item" href="cu_order.html">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">订单</span>
+			</a>
+			<a class="mui-tab-item" href="#tabbar-with-contact">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+	
+		</nav>	
+
+		<div class="mui-content">		
+
+			<div class="mui-card">
+				<div class="mui-card-header" id="disp">订单：珠江新城--祈福新村</div>
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+						<div class="mui-col mui-col-xs-6">
+					        <span class="mui-col mui-col-xs-6">司机：</span>
+					        <span class="mui-col mui-col-xs-2" id="drivername"> </span>
+					    </div>
+						<div class="mui-col mui-col-xs-6">
+					        <span class="mui-col mui-col-xs-6">车牌号：</span>
+					        <span class="mui-col mui-col-xs-2" id="carnum">粤A  </span>
+					    </div>
+						<div class="mui-col mui-col-xs-6">
+					        <span class="mui-col mui-col-xs-2">开车时间：</span>
+					        <span class="mui-col mui-col-xs-10" id="begintime">19: </span>
+					    </div>
+						<div class="mui-col mui-col-xs-6">
+					        <span class="mui-col mui-col-xs-6">车费：</span>
+					        <span class="mui-col mui-col-xs-2" id="money">result</span>
+					    </div>
+						<div class="mui-col mui-col-xs-6">
+					        <span class="mui-col mui-col-xs-6">剩余时间：</span>
+					        <span class="mui-col mui-col-xs-2">03：45</span>
+					    </div>
+						<div class="mui-col mui-col-xs-6">
+					        <span class="mui-col mui-col-xs-6">备注：</span>
+					        <span class="mui-col mui-col-xs-2" id="memo">03：45</span>
+					    </div>
+    
+					</div>
+				</div>
+				
+				<div class="mui-card-footer">
+					<div class="mui-btn mui-btn-primary" >
+						呼叫司机
+					</div>
+					<button id="ttt" type="button" class="mui-btn mui-btn-green">
+							发布
+					</button>
+					<span class="mui-btn mui-btn-success">
+						聊天
+					</span>
+				</div>
+			</div>
+
+			<div class="mui-card">
+				<div class="mui-card-header">其他乘客</div>
+				<div class="mui-card-content">
+					<div id="users" class="mui-card-content-inner">
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

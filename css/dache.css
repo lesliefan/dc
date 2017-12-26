@@ -1,0 +1,9 @@
+
+.centerimg :before
+{
+	
+	content:' ';
+    background-image: url(../images/reddot.png);
+    background-size:20px 20px;
+    position: absolute;
+}

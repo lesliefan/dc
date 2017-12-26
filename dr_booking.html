@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/mui.picker.min.css" rel="stylesheet" />
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/mui.picker.min.js"></script>
+		<script src="js/tools.js"></script>
+
+	</head>
+
+	<body>
+		<div class="mui-content">			
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="images/shuijiao.jpg">
+						<div class="mui-media-body">
+							创建订单
+
+						</div>
+					</a>
+				</li>
+			</ul>
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>起点</label>
+					<input id="startp" type="text" class="mui-input-clear" placeholder="输入起点位置">
+				</div>
+				<div class="mui-input-row">
+					<label>终点</label>
+					<input id="endp" type="text" class="mui-input-clear" placeholder="输入终点位置">
+					
+				</div>
+				<div class="mui-input-row">
+					<label>空位数量</label>
+					<div class="mui-numbox" data-numbox-step='1' data-numbox-min='1' data-numbox-max='7'>
+					    <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+					    <input id="seats" class="mui-input-numbox" type="number" />
+					    <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+					</div>
+					
+				</div>
+				<div class="mui-input-row">
+					<label>发车时间</label>
+					<input id="btime" type="text" class="mui-input-clear" placeholder="发车时间">
+					
+				</div>
+				
+				<div class="mui-input-row">
+					<label>车费</label>
+					<input id="money" type="text" placeholder="10元">
+				</div>
+				<div class="mui-input-row">
+					<label>备注</label>
+					<input id="memo" type="text" class="mui-input-clear" placeholder="其他要求">
+				</div>				
+				
+			</form>			
+			<button id='fabu' class="mui-btn mui-btn-primary mui-btn-block" type='button'>发布订单</button>
+			<button id='test' class="mui-btn mui-btn-block" type='button'>测试</button>
+		</div>			
+		
+
+		
+		<script type="text/javascript">
+			mui.init();
+
+			var driverid=1;
+			//发布按钮
+			var bfabu=document.getElementById("fabu");
+			bfabu.addEventListener('tap',function(){				
+				$.ajax({
+					type: 'GET',
+					contentType: 'application/x-www-form-urlencoded',
+					url: "http://111.230.153.180:3000/addnewone",
+					dataType: 'text',
+					data: {
+						func:"addNewOrder",
+						dataarr:GetJsonData()
+					},
+					success: function(result) {
+						alert("插入成功");						
+					},
+					error: function(result, status) {
+						alert("connect  error:" + result + status);
+					}
+				});						
+			});
+			
+			 window.onload = function(){
+	            //从服务器获取数据	            
+	            //业务数据获取完毕，并已插入当前页面DOM；
+	            //注意：若为ajax请求，则需将如下代码放在处理完ajax响应数据之后；
+	            mui.plusReady(function(){
+	                var self = plus.webview.currentWebview();
+	                var pid = self.driverid;
+	                console.log(pid);
+	                			
+	                //关闭等待框
+	                plus.nativeUI.closeWaiting();
+	                //显示当前页面
+	                mui.currentWebview.show();
+	            });
+	       }
+			//时间选择器
+			var btt=document.getElementById("btime");
+			btt.addEventListener('tap',function(){
+				var dtPicker = new mui.DtPicker({
+					"type":"datetime",
+					"customData":{"i":[{"value":"0","text":"00"},{"value":"0","text":"15"},{"value":"30","text":"30"},{"value":"45","text":"45"},{"value":"45","text":"60"}]}
+				});
+				dtPicker.show(function (selectItems) {
+					document.getElementById("btime").value=selectItems.y.value +'-'+selectItems.m.value+'-'+selectItems.d.value  +' '+selectItems.h.value +':'+selectItems.i.value;  
+				});
+			},false);
+			
+			//测试按钮
+			var btest=document.getElementById("test");
+			btest.addEventListener('tap',function(){
+				$.ajax({
+					type: 'GET',
+					contentType: 'application/x-www-form-urlencoded',
+					url: "http://111.230.153.180:3000/testapp",
+					dataType: 'text',
+					data: {
+						func:"addNewOrder",
+						dataarr:GetJsonData()
+					},
+					success: function(result) {
+						alert("插入成功");						
+					},
+					error: function(result, status) {
+						alert("connect  error:" + result + status);
+					}
+				});						
+				
+			});					
+			
+			//构建数据json
+			
+			function GetJsonData() {
+				var startp={"k":"startp","v":document.getElementById("startp").value};
+				var endp={"k":"endp","v":document.getElementById("endp").value};				
+				var driverid={"k":"driverid","v":1};				
+				var btime={"k":"begintime","v":document.getElementById("btime").value};
+				var seats={"k":"seats","v":document.getElementById("seats").value};
+				var money={"k":"money","v":document.getElementById("money").value};
+				var memo={"k":"memo","v":document.getElementById("memo").value};	
+				
+				var values=[startp,endp,driverid,btime,seats,money,memo];//				
+				return values;
+				
+			};
+				
+		</script>
+		
+		
+	</body>
+
+</html>
