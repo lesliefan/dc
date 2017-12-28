@@ -10,7 +10,6 @@
 		<script src="js/jquery.min.js"></script>
 		<script src="js/mui.picker.min.js"></script>
 		<script src="js/tools.js"></script>
-
 	</head>
 
 	<body>
@@ -21,7 +20,6 @@
 						<img class="mui-media-object mui-pull-left" src="images/shuijiao.jpg">
 						<div class="mui-media-body">
 							创建订单
-
 						</div>
 					</a>
 				</li>
@@ -71,6 +69,13 @@
 			mui.init();
 
 			var driverid=1;
+			window.addEventListener("getparams",function(e){
+				
+				
+			});
+			
+			
+			
 			//发布按钮
 			var bfabu=document.getElementById("fabu");
 			bfabu.addEventListener('tap',function(){				
@@ -98,9 +103,24 @@
 	            //注意：若为ajax请求，则需将如下代码放在处理完ajax响应数据之后；
 	            mui.plusReady(function(){
 	                var self = plus.webview.currentWebview();
-	                var pid = self.driverid;
-	                console.log(pid);
-	                			
+	                //var pid = self.spname;
+	                var sptxt=document.getElementById("startp");
+	                var eptxt=document.getElementById("endp");
+	                sptxt.setAttribute("pname",self.spname); 
+	                sptxt.setAttribute("plng",self.splng);
+	                sptxt.setAttribute("plat",self.splat);
+	                sptxt.value=self.spname; 
+	
+					eptxt.setAttribute("pname",self.epname);
+	                eptxt.setAttribute("plng",self.eplng);
+	                eptxt.setAttribute("plat",self.eplat);
+
+					eptxt.value=self.epname;
+	                
+	
+
+	                mui.toast(self.epname);
+	                	 		
 	                //关闭等待框
 	                plus.nativeUI.closeWaiting();
 	                //显示当前页面

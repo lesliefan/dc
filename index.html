@@ -47,8 +47,29 @@
 					}
 		
 				});
-		
+		 
 			});
+        	//我关注的线路
+			$.ajax({ 
+				type: 'GET',
+				contentType: 'application/x-www-form-urlencoded',
+				url: "http://111.230.153.180:3000/getinfobyid",
+				dataType: 'text',
+				data: {
+					id: 1,
+					func:"getCareLinesByCuID"
+				},
+				success: function(result) {
+					var sss = $.parseJSON(result);
+					//alert(sss.length);
+					for(var i = 0; i<sss.length; i++){												
+						$("#lines").append(" <li  class='mui-table-view-cell' >"+sss[i].startp+"--->"+sss[i].endp+"</li>");
+					};
+				},
+				error: function(result, status) {
+					alert("connect  error:" + result + status);
+				}
+			});			
 		
 		});
 //		$(document).ready(function() {//读出司机发布的订单
@@ -73,27 +94,7 @@
 //				}
 //			});
 
-        	//我关注的线路
-//			$.ajax({
-//				type: 'GET',
-//				contentType: 'application/x-www-form-urlencoded',
-//				url: "http://111.230.153.180:3000/getinfobyid",
-//				dataType: 'text',
-//				data: {
-//					id: 1,
-//					func:"getCareLinesByCuID"
-//				},
-//				success: function(result) {
-//					var sss = $.parseJSON(result);
-//					//alert(sss.length);
-//					for(var i = 0; i<sss.length; i++){												
-//						$("#lines").append(" <li  class='mui-table-view-cell' >"+sss[i].startp+"--->"+sss[i].endp+"</li>");
-//					};
-//				},
-//				error: function(result, status) {
-//					alert("connect  error:" + result + status);
-//				}
-//			});
+
 			
 			//附近最新的订单
 //			$.ajax({
@@ -201,27 +202,6 @@
 				<div class="mui-card-footer">
 					他正在寻找乘客
 					<button>坐他的车</button>
-				</div>
-			</div>
-
-		</div>
-		<div class="mui-card">
-			<div class="mui-card-content">
-				<div class="mui-card-header  mui-card-media">
-					<img src="images/bniu.jpg" />
-					<div class="mui-media-body">
-							金鱼姬
-							<p>传祺 GS4  余4座   10元/位</p>
-					</div>
-				</div>
-				<div class="mui-card-content-inner">
-					<p>起点：祈福新村</p>
-					<p>终点：珠江新城</p>
-					<p>出发时间：2017-12-12 19:30</p>
-				</div>
-				<div class="mui-card-footer">
-					他正在寻找乘客
-					<button>坐ta的车</button>
 				</div>
 			</div>
 

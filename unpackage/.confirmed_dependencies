@@ -8,7 +8,8 @@
 	},
 	"getpoint.html": {
 		"refer": [
-			"tst.html"
+			"tst.html",
+			"dr_booking.html"
 		]
 	},
 	"tst.html": {

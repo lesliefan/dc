@@ -248,7 +248,8 @@
 			"getpoint.html": {
 				"resources": [],
 				"refer": [
-					"tst.html"
+					"tst.html",
+					"dr_booking.html"
 				],
 				"priority": 0
 			},
